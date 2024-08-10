@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2022",
+        // important for nest
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "joowee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shenglin1991/joowee.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shenglin1991/joowee/issues"
+  },
+  "homepage": "https://github.com/shenglin1991/joowee#readme",
+  "dependencies": {
+    "@nestjs/common": "^10.3.10",
+    "@nestjs/core": "^10.3.10",
+    "@nestjs/platform-express": "^10.3.10",
+    "reflect-metadata": "^0.2.2",
+    "typescript": "^5.5.4"
+  }
+}
