@@ -1,0 +1,14 @@
+<div class="chat-header">
+  <div class="user-info">
+    <span class="username">{{ currentUser()?.username }}</span>
+    <span class="status online">En ligne</span>
+  </div>
+  <div class="header-actions">
+    <button class="new-chat-btn" (click)="newChatClicked.emit()">
+      Nouveau chat
+    </button>
+    <button class="logout-btn" (click)="logoutClicked.emit()">
+      Déconnexion
+    </button>
+  </div>
+</div>

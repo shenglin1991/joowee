@@ -1,0 +1,51 @@
+{
+    "name": "nestjs-backend",
+    "version": "1.0.0",
+    "description": "A backend application built with NestJS",
+    "main": "dist/main.js",
+    "scripts": {
+        "start": "nest start --watch",
+        "start:dev": "nest start --watch",
+        "start:prod": "node dist/main.js",
+        "build": "nest build",
+        "test": "jest",
+        "test:e2e": "jest --config test/jest-e2e.json"
+    },
+    "dependencies": {
+        "@nestjs/common": "^9.0.0",
+        "@nestjs/config": "^2.3.4",
+        "@nestjs/core": "^9.0.0",
+        "@nestjs/jwt": "^10.0.0",
+        "@nestjs/passport": "^9.0.0",
+        "@nestjs/platform-express": "^9.0.0",
+        "@nestjs/platform-socket.io": "^9.0.0",
+        "@nestjs/typeorm": "^9.0.1",
+        "@nestjs/websockets": "^9.0.0",
+        "bcryptjs": "^2.4.3",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.0",
+        "mysql2": "^3.15.3",
+        "passport": "^0.6.0",
+        "passport-jwt": "^4.0.1",
+        "reflect-metadata": "^0.1.13",
+        "rxjs": "^7.0.0",
+        "socket.io": "^4.6.2",
+        "typeorm": "^0.3.28",
+        "typescript": "^4.5.0"
+    },
+    "devDependencies": {
+        "@nestjs/testing": "^9.0.0",
+        "@types/bcrypt": "^5.0.0",
+        "@types/bcryptjs": "^2.4.6",
+        "@types/jest": "^27.0.0",
+        "@types/passport-jwt": "^3.0.8",
+        "eslint": "^7.0.0",
+        "jest": "^27.0.0",
+        "prettier": "^2.0.0",
+        "ts-jest": "^27.0.0",
+        "ts-loader": "^9.0.0"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT"
+}
