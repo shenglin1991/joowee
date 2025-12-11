@@ -12,8 +12,8 @@ module.exports = {
         DB_USERNAME: 'root',
         DB_PASSWORD: 'root',
         DB_DATABASE: 'demo_angular_20',
-	JWT_SECRET: 'your-secret-key-change-this-in-production',
-	JWT_EXPIRES_IN: '24h'
+        JWT_SECRET: 'your-secret-key-change-this-in-production',
+        JWT_EXPIRES_IN: '24h'
       }
     }
   ]

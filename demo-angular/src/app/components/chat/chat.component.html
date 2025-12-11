@@ -1,0 +1,33 @@
+<div class="chat-container">
+  <app-chat-header
+    [currentUser]="currentUser()"
+    (newChatClicked)="toggleUserList()"
+    (logoutClicked)="onLogout()"
+  />
+
+  <div class="chat-content">
+    <div class="sidebar">
+      <app-conversation-list
+        [conversations]="this.conversations()"
+        [selectedConversationId]="selectedConversation()?.id ?? null"
+        (conversationSelected)="onConversationSelected($event)"
+      />
+
+      <app-online-users
+        [users]="onlineUsers()"
+        [visible]="showUserList()"
+        (userSelected)="onUserSelected($event)"
+        (closed)="toggleUserList()"
+      />
+    </div>
+
+    <div class="main-chat">
+      <app-message-area
+        [conversation]="selectedConversation()"
+        [messages]="messages()"
+        [currentUserId]="currentUser()?.id ?? null"
+        (messageSent)="onMessageSent($event)"
+      />
+    </div>
+  </div>
+</div>
