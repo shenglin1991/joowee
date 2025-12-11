@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChatModule } from './modules/chat/chat.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { PeopleModule } from './modules/people/people.module';
 import { getDatabaseConfig } from './config/database.config';
 
 @Module({
@@ -18,6 +19,7 @@ import { getDatabaseConfig } from './config/database.config';
         }),
         ChatModule,
         AuthModule,
+        PeopleModule,
     ],
     controllers: [],
     providers: [],

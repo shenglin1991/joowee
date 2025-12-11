@@ -1,8 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from '../modules/chat/entities/user.entity';
-import { Conversation } from '../modules/chat/entities/conversation.entity';
-import { Message } from '@/modules/chat/entities/message.entity';
 
 export const getDatabaseConfig = (
     configService: ConfigService
@@ -13,7 +10,7 @@ export const getDatabaseConfig = (
     username: configService.get<string>('DB_USERNAME', 'root'),
     password: configService.get<string>('DB_PASSWORD', 'root'),
     database: configService.get<string>('DB_DATABASE', 'demo_angular_20'),
-    entities: [User, Message, Conversation],
+    autoLoadEntities: true,
     synchronize: true,
     logging: false,
 });

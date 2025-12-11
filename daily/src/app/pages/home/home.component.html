@@ -1,0 +1,56 @@
+<section class="panel">
+  <header class="panel__header">
+    <div>
+      <p class="eyebrow">Accueil</p>
+      <h1>Daily de l'équipe</h1>
+    </div>
+    <button class="primary" (click)="startDaily()">Démarrer le daily</button>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card__header">
+        <h2>Personnes</h2>
+        <span class="pill">{{ people().length }}</span>
+      </div>
+
+      <div class="add-row">
+        <input type="text" placeholder="Ajouter une personne" [ngModel]="newName()" (ngModelChange)="newName.set($event)" />
+        <button class="secondary" (click)="addPerson()" [disabled]="loading()">Ajouter</button>
+      </div>
+
+      @if (error()) {
+        <div class="error">{{ error() }}</div>
+      }
+
+      <ul class="people">
+        @for (person of people(); track person.id) {
+          <li>
+            <div class="person">
+              <div>
+                <p class="name">{{ person.name }}</p>
+                <p class="meta">{{ absents().has(person.id) ? 'Absent' : 'Présent' }}</p>
+              </div>
+              <div class="actions">
+                <button class="ghost" (click)="toggleAbsent(person.id)">
+                  {{ absents().has(person.id) ? 'Marquer présent' : 'Marquer absent' }}
+                </button>
+                <button class="danger" (click)="removePerson(person.id)" [disabled]="loading()">Supprimer</button>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card__header">
+        <h2>Paramètres</h2>
+      </div>
+      <label class="field">
+        <span>Durée par personne (secondes)</span>
+        <input type="number" min="30" max="900" [value]="timerSeconds()" (input)="updateTimer($any($event.target).valueAsNumber || 120)" />
+      </label>
+    </div>
+  </div>
+</section>

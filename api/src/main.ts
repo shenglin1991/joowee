@@ -8,13 +8,16 @@ async function bootstrap() {
 
     app.useWebSocketAdapter(new IoAdapter(app));
 
+    // Ajouter le préfixe global /api
+    app.setGlobalPrefix('api');
+
     // Activer la validation globale
     app.useGlobalPipes(new ValidationPipe());
 
     // Activer CORS
     app.enableCors({
-	origin: '*',        
-	credentials: true,
+        origin: '*',
+        credentials: true,
     });
 
     await app.listen(3010);
