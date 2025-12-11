@@ -43,6 +43,7 @@
                 }
               ],
               "outputHashing": "all",
+              "baseHref": "/daily/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
