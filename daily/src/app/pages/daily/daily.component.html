@@ -48,11 +48,11 @@
           <div class="wheel-container">
             <div class="wheel-indicator"></div>
             <div class="wheel" [style.transform]="'rotate(' + wheelRotation() + 'deg'">
-              @for (person of getAvailablePeople(); let i = $index; track person.id) {
+              @for (person of availablePeople(); let i = $index; track person.id) {
                 <div 
                   class="wheel-segment" 
                   [style.background]="getColorForIndex(i)"
-                  [style.--segment-angle]="(360 / getAvailablePeople().length) + 'deg'"
+                  [style.--segment-angle]="(360 / availablePeople().length) + 'deg'"
                   [style.--segment-index]="i"
                 >
                   <span class="segment-text">{{ person.name }}</span>

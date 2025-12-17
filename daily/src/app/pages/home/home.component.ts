@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PeopleService } from '../../services/people.service';
+import { DailyService, DailyPresenter } from '../../services/daily.service';
 import { DailyStateService } from '../../services/daily-state.service';
 import { Person } from '../../models/person';
 
@@ -15,6 +16,7 @@ import { Person } from '../../models/person';
 })
 export class HomeComponent implements OnInit {
   private readonly peopleService = inject(PeopleService);
+  private readonly dailyService = inject(DailyService);
   private readonly dailyState = inject(DailyStateService);
   private readonly router = inject(Router);
 
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit {
   newName = signal('');
   timerSeconds = this.dailyState.timerSeconds;
   absents = this.dailyState.absents;
+  todayPresenter = signal<DailyPresenter | null>(null);
 
   constructor() {
     effect(() => {
@@ -33,6 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPeople();
+    this.fetchTodayPresenter();
   }
 
   fetchPeople() {
@@ -47,6 +51,17 @@ export class HomeComponent implements OnInit {
       error: () => {
         this.error.set('Impossible de charger la liste');
         this.loading.set(false);
+      },
+    });
+  }
+
+  fetchTodayPresenter() {
+    this.dailyService.getLastPresenter().subscribe({
+      next: (presenter) => {
+        this.todayPresenter.set(presenter);
+      },
+      error: () => {
+        console.error('Erreur lors du chargement du dernier présentateur');
       },
     });
   }

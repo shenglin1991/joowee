@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit, inject, signal, effect } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal, effect, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DailyStateService } from '../../services/daily-state.service';
+import { DailyService } from '../../services/daily.service';
 import { Person } from '../../models/person';
 
 @Component({
@@ -14,12 +15,17 @@ import { Person } from '../../models/person';
 export class DailyComponent implements OnInit, OnDestroy {
   readonly state = inject(DailyStateService);
   private readonly router = inject(Router);
+  private readonly dailyService = inject(DailyService);
   private timerHandle: any = null;
 
   currentPerson = this.state.currentPerson;
   remainingSeconds = this.state.remainingSeconds;
   isRunning = this.state.isRunning;
   spokenIds = this.state.spokenIds;
+
+  availablePeople = computed(() => {
+    return this.state.people().filter((p) => !this.state.absents().has(p.id));
+  });
 
   // Roulette state
   selectedForTomorrow = signal<Person | null>(null);
@@ -49,10 +55,6 @@ export class DailyComponent implements OnInit, OnDestroy {
         }, 100);
       }
     });
-  }
-
-  getAvailablePeople(): Person[] {
-    return this.state.people().filter((p) => !this.state.absents().has(p.id));
   }
 
   getColorForIndex(index: number): string {
@@ -123,7 +125,7 @@ export class DailyComponent implements OnInit, OnDestroy {
   spinTheWheel(): void {
     if (this.isSpinning()) return;
 
-    const people = this.getAvailablePeople();
+    const people = this.availablePeople();
     if (people.length === 0) return;
 
     this.isSpinning.set(true);
@@ -138,8 +140,19 @@ export class DailyComponent implements OnInit, OnDestroy {
     this.wheelRotation.set(finalRotation);
 
     setTimeout(() => {
-      this.selectedForTomorrow.set(people[selectedIndex]);
+      const selected = people[selectedIndex];
+      this.selectedForTomorrow.set(selected);
       this.isSpinning.set(false);
+
+      // Save to backend
+      this.dailyService.setPresenter(selected.id).subscribe({
+        next: () => {
+          console.log('Présentateur sauvegardé:', selected.name);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la sauvegarde:', err);
+        },
+      });
     }, spinDuration * 1000);
   }
 }

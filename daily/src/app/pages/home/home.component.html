@@ -7,6 +7,23 @@
     <button class="primary" (click)="startDaily()">Démarrer le daily</button>
   </header>
 
+  <div class="card">
+      <div class="card__header">
+        <h2>Présentateur aujourd'hui</h2>
+      </div>
+      @if (todayPresenter()?.selectedPerson) {
+        <div class="presenter">
+          <p class="eyebrow">Sélectionné</p>
+          <h3>{{ todayPresenter()!.selectedPerson!.name }}</h3>
+        </div>
+      } @else {
+        <div class="placeholder">
+          <p>Aucun présentateur n'a encore été sélectionné</p>
+          <p class="eyebrow">Lancez le daily et tournez la roue !</p>
+        </div>
+      }
+    </div>
+    
   <div class="grid">
     <div class="card">
       <div class="card__header">
