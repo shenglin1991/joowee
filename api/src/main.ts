@@ -16,8 +16,18 @@ async function bootstrap() {
 
     // Activer CORS
     app.enableCors({
-        origin: '*',
+        origin: [
+            'http://37.187.218.143',
+            'https://37.187.218.143',
+            'http://adrien-sheng-lin.fr',
+            'https://adrien-sheng-lin.fr',
+            'http://www.adrien-sheng-lin.fr',
+            'https://www.adrien-sheng-lin.fr',
+            'http://localhost:4200', // Pour le développement local
+        ],
         credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
     });
 
     await app.listen(3010);

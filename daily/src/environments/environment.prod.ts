@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://37.187.218.143/api',
+  apiUrl: '/api', // Sera remplacé dynamiquement par window.location.origin/api en production
 };
