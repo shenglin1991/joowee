@@ -16,6 +16,9 @@ export class Person {
     @Column({ default: 'active' })
     status: string;
 
+    @Column({ default: 0 })
+    count: number;
+
     @CreateDateColumn()
     createdAt: Date;
 }

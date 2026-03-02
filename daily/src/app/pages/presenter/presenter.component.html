@@ -1,0 +1,81 @@
+<section class="panel">
+  <header class="panel__header">
+    <div>
+      <p class="eyebrow">Présentateur</p>
+      <h1>Choisir le présentateur de demain</h1>
+    </div>
+    <button class="secondary" (click)="goHome()">Retour à l'accueil</button>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card__header">
+        <h2>Personnes disponibles demain</h2>
+        <span class="pill">{{ availablePeople().length }} sélectionné(s)</span>
+      </div>
+
+      @if (error()) {
+        <div class="error">{{ error() }}</div>
+      }
+
+      <ul class="people">
+        @for (person of people(); track person.id) {
+          <li>
+            <div class="person">
+              <div>
+                <p class="name">{{ person.name }}</p>
+              </div>
+              <div class="actions">
+                <label class="field inline-field">
+                  <input
+                    type="checkbox"
+                    [checked]="selectedIds().has(person.id)"
+                    (change)="toggleSelected(person.id)"
+                  />
+                  <span>Présent demain</span>
+                </label>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card__header">
+        <h2>Roulette du présentateur</h2>
+      </div>
+      <div class="roulette">
+        <div class="wheel-container">
+          <div class="wheel-indicator"></div>
+          <div class="wheel" [style.transform]="'rotate(' + wheelRotation() + 'deg'">
+            @for (person of availablePeople(); let i = $index; track person.id) {
+              <div
+                class="wheel-segment"
+                [style.background]="getColorForIndex(i)"
+                [style.--segment-angle]="(360 / availablePeople().length) + 'deg'"
+                [style.--segment-index]="i"
+              >
+                <span class="segment-text">{{ person.name }}</span>
+              </div>
+            }
+          </div>
+        </div>
+        <button
+          class="spin-button"
+          (click)="spinTheWheel()"
+          [disabled]="isSpinning() || availablePeople().length === 0"
+        >
+          {{ isSpinning() ? 'Rotation...' : 'Tourner la roue' }}
+        </button>
+        @if (selectedForTomorrow()) {
+          <div class="result">
+            <p class="eyebrow">Présentateur sélectionné</p>
+            <h3>{{ selectedForTomorrow()!.name }}</h3>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+

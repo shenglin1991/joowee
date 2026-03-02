@@ -114,4 +114,8 @@ export class HomeComponent implements OnInit {
     this.dailyState.nextSpeaker(true);
     this.router.navigate(['/daily']);
   }
+
+  goToPresenter() {
+    this.router.navigate(['/presenter']);
+  }
 }

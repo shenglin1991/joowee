@@ -11,7 +11,7 @@ export class DailyService {
         private dailyRepository: Repository<Daily>,
         @InjectRepository(Person)
         private personRepository: Repository<Person>
-    ) {}
+    ) { }
 
     async getLastPresenter(): Promise<Daily | null> {
         return this.dailyRepository.findOne({
@@ -43,6 +43,8 @@ export class DailyService {
         } else {
             daily.selectedPersonId = personId;
         }
+        person.count++;
+        await this.personRepository.save(person);
 
         return this.dailyRepository.save(daily);
     }
