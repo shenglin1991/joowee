@@ -1,0 +1,78 @@
+<main class="resize-main">
+  <section class="resize-card">
+    <header class="resize-header">
+      <h1>Compression d’images / PDF</h1>
+      <p>
+        Charge un fichier, choisis une stratégie de réduction, puis télécharge la version compressée.
+      </p>
+    </header>
+
+    <div class="resize-body">
+      <div class="field">
+        <label for="file">Fichier à compresser</label>
+        <input id="file" type="file" (change)="onFileSelected($event)" accept="image/*,application/pdf" />
+      </div>
+
+      @if (selectedFile) {
+      <div class="file-info">
+        <p><strong>Fichier :</strong> {{ selectedFile.name }}</p>
+        <p><strong>Taille originale :</strong> {{ originalSizeKb() }} Ko</p>
+      </div>
+      }
+
+      <div class="field">
+        <label>Mode de réduction</label>
+        <div class="mode-options">
+          <label>
+            <input type="radio" name="mode" value="max" [(ngModel)]="mode" />
+            Taille maximale (en Ko)
+          </label>
+          <label>
+            <input type="radio" name="mode" value="percent" [(ngModel)]="mode" />
+            Pourcentage de la taille originale
+          </label>
+        </div>
+      </div>
+
+      @if (mode === 'max') {
+      <div class="field">
+        <label for="maxSize">Taille maximale souhaitée (Ko)</label>
+        <input id="maxSize" type="number" min="1" [(ngModel)]="maxSizeKb" />
+      </div>
+      }
+
+      @if (mode === 'percent') {
+      <div class="field">
+        <label for="percent">Taille cible (% de la taille originale)</label>
+        <input id="percent" type="number" min="1" max="100" [(ngModel)]="percent" />
+      </div>
+      }
+
+      <button class="primary" (click)="onCompress()" [disabled]="!canCompress() || isProcessing">
+        {{ isProcessing ? 'Compression en cours…' : 'Compresser' }}
+      </button>
+
+      @if (compressedBlob) {
+      <div class="result">
+        <p>
+          <strong>Taille compressée :</strong> {{ compressedSizeKb() }} Ko
+        </p>
+        <p>
+          <strong>Gain :</strong> {{ gainPercent() }} %
+        </p>
+        @if (downloadUrl) {
+        <a class="download-link" [href]="downloadUrl" [download]="downloadName">
+          Télécharger le fichier compressé
+        </a>
+        }
+      </div>
+      }
+
+      @if (error) {
+      <p class="error">
+        {{ error }}
+      </p>
+      }
+    </div>
+  </section>
+</main>
