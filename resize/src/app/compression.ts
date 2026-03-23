@@ -98,7 +98,7 @@ export async function compressPdfLocally(
 
   // PDF.js a besoin d’un worker source (pour éviter les erreurs de chargement).
   // Le worker est copié dans `resize/public/pdf.worker.min.mjs`.
-  pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdf.worker.min.mjs', document.baseURI).toString();
 
   const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
   const pdf = await loadingTask.promise;
