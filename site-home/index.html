@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adrien - Outils &amp; projets</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-title">Adrien Sheng LIN</div>
+        <div class="brand-subtitle">Outils web utiles, rapides et orientés pratique.</div>
+      </div>
+      <nav class="nav">
+        <a class="nav-link" href="#outils">Outils</a>
+        <a class="nav-link" href="#a-propos">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>Bienvenue sur mon site</h1>
+          <p>
+            Je regroupe ici quelques mini-outils que j’utilise au quotidien.
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="#outils">Voir les outils</a>
+            <a class="btn btn-ghost" href="mailto:adrien.lin@pm.me">Me contacter</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-title">Résumé</div>
+          <ul class="hero-list">
+            <li>Partage : idées + outils terminés</li>
+            <li>Objectif : simplicité et efficacité</li>
+            <li>Ajouts : nouveaux outils au fil du temps</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="outils" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Outils disponibles</h2>
+          <p>Cliquer sur une carte pour accéder à l’outil.</p>
+        </div>
+
+        <div class="tools-grid">
+          <a class="tool-card" href="/daily" aria-label="Outil Daily">
+            <div class="tool-card-top">
+              <div class="tool-icon" aria-hidden="true">D</div>
+              <div class="tool-card-title">Daily</div>
+            </div>
+            <div class="tool-card-desc">
+              Pages pour piloter le daily de l'équipe.
+            </div>
+            <div class="tool-card-foot">Accéder</div>
+          </a>
+
+          <a class="tool-card" href="/resize" aria-label="Outil Resize">
+            <div class="tool-card-top">
+              <div class="tool-icon" aria-hidden="true">R</div>
+              <div class="tool-card-title">Resize</div>
+            </div>
+            <div class="tool-card-desc">
+              Compresser des images ou des PDF pour viser une taille max ou un pourcentage.
+            </div>
+            <div class="tool-card-foot">Accéder</div>
+          </a>
+
+          <div class="tool-card tool-card-disabled" role="note" aria-label="Bientôt">
+            <div class="tool-card-top">
+              <div class="tool-icon" aria-hidden="true">+</div>
+              <div class="tool-card-title">Autre outil</div>
+            </div>
+            <div class="tool-card-desc">Bientôt… Ajoute ici un nouvel outil quand il sera prêt.</div>
+            <div class="tool-card-foot">À venir</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="a-propos" class="section section-muted">
+      <div class="container about">
+        <div class="about-left">
+          <h2>À propos</h2>
+          <p>
+            Petite page personnelle pour centraliser mes outils. Je suis toujours preneur de retours,
+            d’idées d’optimisations et de nouvelles idées à développer.
+          </p>
+        </div>
+        <div class="about-right">
+          <div class="contact">
+            <div class="contact-title">Liens</div>
+            <a class="contact-link" href="mailto:adrien.lin@pm.me">Email</a>
+            <a class="contact-link" href="https://github.com/shenglin1991">GitHub</a>
+            <a class="contact-link" href="https://www.linkedin.com/in/adrien-sheng-l-853809ba/">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Adrien Sheng-Lin</div>
+      <div class="footer-right">Site statique (liens vers tes apps).</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
