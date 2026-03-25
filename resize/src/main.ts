@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import { ResizeComponent } from './app/components/resize/resize.component';
 
-bootstrapApplication(App, appConfig)
+bootstrapApplication(ResizeComponent, appConfig)
   .catch((err) => console.error(err));
