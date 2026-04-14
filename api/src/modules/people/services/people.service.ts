@@ -9,7 +9,7 @@ export class PeopleService {
     constructor(
         @InjectRepository(Person)
         private personRepository: Repository<Person>
-    ) {}
+    ) { }
 
     async findAll(): Promise<Person[]> {
         return this.personRepository.find({
@@ -18,7 +18,10 @@ export class PeopleService {
     }
 
     async create(createPersonDto: CreatePersonDto): Promise<Person> {
+        const persons = await this.personRepository.find()
+        const minCount = Math.min(...persons.map(p => p.count));
         const person = this.personRepository.create(createPersonDto);
+        person.count = minCount;
         return this.personRepository.save(person);
     }
 

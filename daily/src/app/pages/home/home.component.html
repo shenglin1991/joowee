@@ -55,7 +55,7 @@
                 <button class="ghost" (click)="toggleAbsent(person.id)">
                   {{ absents().has(person.id) ? 'Marquer présent' : 'Marquer absent' }}
                 </button>
-                <button class="danger" (click)="removePerson(person.id)" [disabled]="loading()">Supprimer</button>
+                <button class="danger" (click)="removePerson(person)" [disabled]="loading()">Supprimer</button>
               </div>
             </div>
           </li>

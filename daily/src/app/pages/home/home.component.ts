@@ -85,7 +85,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  removePerson(id: string) {
+  removePerson(person: Person) {
+    const confirmed = window.confirm(
+      `Voulez-vous vraiment supprimer ?\n\n${person.name} ne fait plus partie de l'équipe ?`
+    );
+    if (!confirmed) return;
+
+    const id = person.id;
     this.loading.set(true);
     this.peopleService.remove(id).subscribe({
       next: () => {

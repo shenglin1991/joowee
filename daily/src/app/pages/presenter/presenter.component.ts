@@ -99,6 +99,7 @@ export class PresenterComponent implements OnInit {
 
     setTimeout(() => {
       const selected = people[selectedIndex];
+      selected.count++;
       this.selectedForTomorrow.set(selected);
       this.isSpinning.set(false);
 
@@ -116,22 +117,12 @@ export class PresenterComponent implements OnInit {
   private pickBiasedByCount(people: Person[]): Person | undefined {
     if (people.length === 0) return undefined;
 
-    const maxCount = Math.max(...people.map((p) => p.count));
-
-    // Poids : plus le count est bas, plus le poids est grand
-    const weights = people.map((p) => maxCount - p.count + 1);
-
-    const totalWeight = weights.reduce((sum, w) => sum + w, 0);
-    let r = Math.random() * totalWeight;
-
-    for (let i = 0; i < people.length; i++) {
-      r -= weights[i];
-      if (r <= 0) {
-        return people[i];
-      }
-    }
-
-    return people[people.length - 1];
+    // Équité stricte: seuls les membres avec le count minimal sont éligibles.
+    // On tire ensuite au hasard parmi eux.
+    const minCount = Math.min(...people.map((p) => p.count));
+    const leastSelected = people.filter((p) => p.count === minCount);
+    const randomIndex = Math.floor(Math.random() * leastSelected.length);
+    return leastSelected[randomIndex];
   }
 }
 
