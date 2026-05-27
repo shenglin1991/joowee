@@ -147,6 +147,11 @@ button.ghost {
   background: rgba(255, 255, 255, 0.08);
 }
 
+button.gold {
+  background: linear-gradient(120deg, #b45309, #d97706);
+  color: #fef3c7;
+}
+
 button[disabled] {
   opacity: 0.5;
   cursor: not-allowed;

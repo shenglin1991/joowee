@@ -74,6 +74,10 @@ export class DailyComponent implements OnInit, OnDestroy {
     this.clearTimer();
   }
 
+  resetTimer() {
+    this.state.setRemaining(this.state.timerSeconds());
+  }
+
   moveNext() {
     this.clearTimer();
     this.state.setRunning(false);
