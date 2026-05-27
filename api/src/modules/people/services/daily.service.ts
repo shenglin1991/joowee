@@ -10,17 +10,18 @@ export class DailyService {
         @InjectRepository(Daily)
         private dailyRepository: Repository<Daily>,
         @InjectRepository(Person)
-        private personRepository: Repository<Person>
-    ) { }
+        private personRepository: Repository<Person>,
+    ) {}
 
-    async getLastPresenter(): Promise<Daily | null> {
+    async getLastPresenter(teamId?: string): Promise<Daily | null> {
+        const id = teamId ? `current-${teamId}` : 'current';
         return this.dailyRepository.findOne({
-            where: { id: 'current' },
+            where: { id },
             relations: ['selectedPerson'],
         });
     }
 
-    async setPresenter(personId: string): Promise<Daily> {
+    async setPresenter(personId: string, teamId?: string): Promise<Daily> {
         // Check if person exists
         const person = await this.personRepository.findOne({
             where: { id: personId },
@@ -30,14 +31,16 @@ export class DailyService {
             throw new Error('Person not found');
         }
 
+        const id = teamId ? `current-${teamId}` : 'current';
+
         // Find or create the current presenter record
         let daily = await this.dailyRepository.findOne({
-            where: { id: 'current' },
+            where: { id },
         });
 
         if (!daily) {
             daily = this.dailyRepository.create({
-                id: 'current',
+                id,
                 selectedPersonId: personId,
             });
         } else {

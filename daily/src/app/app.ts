@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { TeamStateService } from './services/team-state.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,11 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './app.scss',
 })
 export class App {
-  title = signal('daily');
+  readonly teamState = inject(TeamStateService);
+  private readonly router = inject(Router);
+
+  logout(): void {
+    this.teamState.clearTeam();
+    this.router.navigate(['/login']);
+  }
 }

@@ -45,3 +45,29 @@ nav a:hover {
 main {
 	padding: 24px;
 }
+
+.team-badge {
+	background: rgba(96, 165, 250, 0.15);
+	color: #bfdbfe;
+	border-radius: 999px;
+	padding: 6px 14px;
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+}
+
+.logout-btn {
+	background: rgba(248, 113, 113, 0.15);
+	color: #fecaca;
+	border: none;
+	cursor: pointer;
+	padding: 8px 12px;
+	border-radius: 10px;
+	font-weight: 600;
+	font-size: 14px;
+	transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+	background: rgba(248, 113, 113, 0.25);
+}

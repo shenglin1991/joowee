@@ -3,7 +3,10 @@ import {
     Column,
     PrimaryGeneratedColumn,
     CreateDateColumn,
+    ManyToOne,
+    JoinColumn,
 } from 'typeorm';
+import { Team } from './team.entity';
 
 @Entity('people')
 export class Person {
@@ -18,6 +21,16 @@ export class Person {
 
     @Column({ default: 0 })
     count: number;
+
+    @Column({ nullable: true })
+    teamId: string;
+
+    @ManyToOne(() => Team, (team) => team.members, {
+        nullable: true,
+        onDelete: 'CASCADE',
+    })
+    @JoinColumn({ name: 'teamId' })
+    team: Team;
 
     @CreateDateColumn()
     createdAt: Date;

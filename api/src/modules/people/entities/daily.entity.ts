@@ -17,7 +17,7 @@ export class Daily {
     @Column({ nullable: true })
     selectedPersonId: string;
 
-    @ManyToOne(() => Person, { nullable: true })
+    @ManyToOne(() => Person, { nullable: true, onDelete: 'SET NULL' })
     @JoinColumn({ name: 'selectedPersonId' })
     selectedPerson: Person;
 

@@ -186,8 +186,12 @@
   <header class="topbar">
     <div class="brand">Daily Coach</div>
     <nav>
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
-      <a routerLink="/daily" routerLinkActive="active">Daily</a>
+      @if (teamState.isAuthenticated()) {
+        <span class="team-badge">{{ teamState.team()?.name }}</span>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+        <a routerLink="/daily" routerLinkActive="active">Daily</a>
+        <button class="logout-btn" (click)="logout()">Déconnexion</button>
+      }
     </nav>
   </header>
   <main>

@@ -5,6 +5,7 @@ import {
     Delete,
     Body,
     Param,
+    Query,
     HttpCode,
 } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
@@ -18,17 +19,20 @@ import { DailyService } from './services/daily.service';
 export class PeopleController {
     constructor(
         private readonly peopleService: PeopleService,
-        private readonly dailyService: DailyService
+        private readonly dailyService: DailyService,
     ) {}
 
     @Get()
-    async findAll(): Promise<Person[]> {
-        return this.peopleService.findAll();
+    async findAll(@Query('teamId') teamId?: string): Promise<Person[]> {
+        return this.peopleService.findAll(teamId);
     }
 
     @Post()
-    async create(@Body() createPersonDto: CreatePersonDto): Promise<Person> {
-        return this.peopleService.create(createPersonDto);
+    async create(
+        @Body() createPersonDto: CreatePersonDto,
+        @Query('teamId') teamId?: string,
+    ): Promise<Person> {
+        return this.peopleService.create(createPersonDto, teamId);
     }
 
     @Delete(':id')
@@ -38,12 +42,17 @@ export class PeopleController {
     }
 
     @Get('daily/presenter')
-    async getLastPresenter(): Promise<Daily | null> {
-        return this.dailyService.getLastPresenter();
+    async getLastPresenter(
+        @Query('teamId') teamId?: string,
+    ): Promise<Daily | null> {
+        return this.dailyService.getLastPresenter(teamId);
     }
 
     @Post('daily/presenter')
-    async setPresenter(@Body() dto: SetPresenterDto): Promise<Daily> {
-        return this.dailyService.setPresenter(dto.personId);
+    async setPresenter(
+        @Body() dto: SetPresenterDto,
+        @Query('teamId') teamId?: string,
+    ): Promise<Daily> {
+        return this.dailyService.setPresenter(dto.personId, teamId);
     }
 }

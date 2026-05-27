@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PeopleService } from '../../services/people.service';
 import { DailyService, DailyPresenter } from '../../services/daily.service';
 import { DailyStateService } from '../../services/daily-state.service';
+import { TeamStateService } from '../../services/team-state.service';
 import { Person } from '../../models/person';
 
 @Component({
@@ -18,7 +19,10 @@ export class HomeComponent implements OnInit {
   private readonly peopleService = inject(PeopleService);
   private readonly dailyService = inject(DailyService);
   private readonly dailyState = inject(DailyStateService);
+  private readonly teamState = inject(TeamStateService);
   private readonly router = inject(Router);
+
+  teamName = this.teamState.team;
 
   people = signal<Person[]>([]);
   loading = signal(false);
@@ -87,7 +91,7 @@ export class HomeComponent implements OnInit {
 
   removePerson(person: Person) {
     const confirmed = window.confirm(
-      `Voulez-vous vraiment supprimer ?\n\n${person.name} ne fait plus partie de l'équipe ?`
+      `Voulez-vous vraiment supprimer ?\n\n${person.name} ne fait plus partie de l'équipe ?`,
     );
     if (!confirmed) return;
 

@@ -1,0 +1,133 @@
+<section class="login-panel">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Daily Coach</h1>
+      <p class="subtitle">Choisissez votre équipe pour commencer</p>
+    </div>
+
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+
+    <div class="teams-list">
+      <div class="teams-list-header">
+        <p class="label">Équipe</p>
+        <button class="create-btn" (click)="openCreateModal()">+ Créer</button>
+      </div>
+      @for (team of teams(); track team.id) {
+        <button
+          class="team-btn"
+          [class.selected]="selectedTeamId() === team.id"
+          (click)="selectTeam(team.id)"
+        >
+          <span class="team-icon">👥</span>
+          <span class="team-name">{{ team.name }}</span>
+          <button class="delete-team-btn" (click)="openDeleteModal(team, $event)" title="Supprimer">🗑️</button>
+        </button>
+      }
+      @if (teams().length === 0 && !loading()) {
+        <p class="placeholder">Aucune équipe disponible</p>
+      }
+    </div>
+
+    @if (selectedTeamId()) {
+      <div class="password-section">
+        <label class="label" for="password">Mot de passe</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Entrez le mot de passe"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          (keydown.enter)="login()"
+        />
+        <button class="primary" (click)="login()" [disabled]="loading() || !password()">
+          Entrer
+        </button>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Modal de création d'équipe -->
+@if (showCreateModal()) {
+  <div class="modal-overlay" (click)="closeCreateModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Créer une équipe</h2>
+        <button class="close-btn" (click)="closeCreateModal()">&times;</button>
+      </div>
+
+      @if (createError()) {
+        <div class="error">{{ createError() }}</div>
+      }
+
+      <div class="modal-body">
+        <label class="field">
+          <span>Nom de l'équipe</span>
+          <input
+            type="text"
+            placeholder="Ex: devTeam"
+            [ngModel]="newTeamName()"
+            (ngModelChange)="newTeamName.set($event)"
+          />
+        </label>
+        <label class="field">
+          <span>Mot de passe</span>
+          <input
+            type="password"
+            placeholder="Min. 4 caractères"
+            [ngModel]="newTeamPassword()"
+            (ngModelChange)="newTeamPassword.set($event)"
+            (keydown.enter)="createTeam()"
+          />
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button class="ghost" (click)="closeCreateModal()">Annuler</button>
+        <button class="primary" (click)="createTeam()" [disabled]="loading() || !newTeamName() || !newTeamPassword()">
+          Créer
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal de suppression d'équipe -->
+@if (showDeleteModal()) {
+  <div class="modal-overlay" (click)="closeDeleteModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Supprimer l'équipe</h2>
+        <button class="close-btn" (click)="closeDeleteModal()">&times;</button>
+      </div>
+
+      <p class="delete-warning">Vous êtes sur le point de supprimer <strong>{{ deleteTeamName() }}</strong>. Cette action est irréversible et supprimera tous les membres de l'équipe.</p>
+
+      @if (deleteError()) {
+        <div class="error">{{ deleteError() }}</div>
+      }
+
+      <div class="modal-body">
+        <label class="field">
+          <span>Mot de passe de l'équipe</span>
+          <input
+            type="password"
+            placeholder="Confirmez avec le mot de passe"
+            [ngModel]="deletePassword()"
+            (ngModelChange)="deletePassword.set($event)"
+            (keydown.enter)="confirmDelete()"
+          />
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button class="ghost" (click)="closeDeleteModal()">Annuler</button>
+        <button class="danger" (click)="confirmDelete()" [disabled]="loading() || !deletePassword()">
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -8,19 +8,29 @@ import { CreatePersonDto } from '../dto/create-person.dto';
 export class PeopleService {
     constructor(
         @InjectRepository(Person)
-        private personRepository: Repository<Person>
-    ) { }
+        private personRepository: Repository<Person>,
+    ) {}
 
-    async findAll(): Promise<Person[]> {
+    async findAll(teamId?: string): Promise<Person[]> {
+        const where = teamId ? { teamId } : {};
         return this.personRepository.find({
+            where,
             order: { createdAt: 'ASC' },
         });
     }
 
-    async create(createPersonDto: CreatePersonDto): Promise<Person> {
-        const persons = await this.personRepository.find()
-        const minCount = Math.min(...persons.map(p => p.count));
-        const person = this.personRepository.create(createPersonDto);
+    async create(
+        createPersonDto: CreatePersonDto,
+        teamId?: string,
+    ): Promise<Person> {
+        const where = teamId ? { teamId } : {};
+        const persons = await this.personRepository.find({ where });
+        const minCount =
+            persons.length > 0 ? Math.min(...persons.map((p) => p.count)) : 0;
+        const person = this.personRepository.create({
+            ...createPersonDto,
+            teamId,
+        });
         person.count = minCount;
         return this.personRepository.save(person);
     }

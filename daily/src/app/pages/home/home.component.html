@@ -2,7 +2,7 @@
   <header class="panel__header">
     <div>
       <p class="eyebrow">Accueil</p>
-      <h1>Daily de l'équipe</h1>
+      <h1>Daily — {{ teamName()?.name }}</h1>
     </div>
     <div class="header-actions">
       <button class="secondary" (click)="goToPresenter()">Choisir le présentateur</button>
