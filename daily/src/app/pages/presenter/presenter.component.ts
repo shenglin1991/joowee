@@ -27,9 +27,7 @@ export class PresenterComponent implements OnInit {
   isSpinning = signal(false);
   wheelRotation = signal(0);
 
-  availablePeople = computed(() =>
-    this.people().filter((p) => this.selectedIds().has(p.id))
-  );
+  availablePeople = computed(() => this.people().filter((p) => this.selectedIds().has(p.id)));
 
   private colors = [
     '#60a5fa', // blue
@@ -93,7 +91,11 @@ export class PresenterComponent implements OnInit {
     const selectedIndex = people.map((p) => p.id).indexOf(selectedPerson?.id ?? '');
     const degreesPerPerson = 360 / people.length;
     const segmentCenter = selectedIndex * degreesPerPerson + degreesPerPerson / 2;
-    const finalRotation = spinCount * 360 + (360 - segmentCenter);
+
+    // Always spin relative to current position so each spin rotates fully
+    const currentRotation = this.wheelRotation();
+    const baseOffset = currentRotation % 360;
+    const finalRotation = currentRotation + spinCount * 360 + (360 - segmentCenter - baseOffset);
 
     this.wheelRotation.set(finalRotation);
 
@@ -125,4 +127,3 @@ export class PresenterComponent implements OnInit {
     return leastSelected[randomIndex];
   }
 }
-
