@@ -51,4 +51,4 @@ jobs:
             source /home/ubuntu/.nvm/nvm.sh
             cd /var/www/adrien-sheng-lin.fr/api
             npm install --production
-            pm2 restart api || pm2 start dist/main.js --name api
+            pm2 restart nestjs-backend || pm2 start dist/main.js --name nestjs-backend
