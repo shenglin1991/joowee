@@ -20,5 +20,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           source: "site-home/*"
-          target: /var/www/adrien-sheng-lin.fr/html
+          target: /var/www/adrien-sheng-lin.fr/html/
           overwrite: true
+          strip_components: 1
