@@ -22,11 +22,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./resize
-        run: npm ci
-
-      - name: Install Angular Builder
-        working-directory: ./resize
-        run: npm install --save-dev @angular/build
+        run: npm install --legacy-peer-deps
 
       - name: Build
         working-directory: ./resize
