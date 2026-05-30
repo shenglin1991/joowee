@@ -35,9 +35,10 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "api/package.json api/package-lock.json api/dist/ api/ecosystem.config.js"
+          source: "api/"
           target: /var/www/adrien-sheng-lin.fr/api
           overwrite: true
+          strip_components: 1
 
       - name: Install and Restart PM2
         uses: appleboy/ssh-action@v1
