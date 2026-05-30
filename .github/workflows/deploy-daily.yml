@@ -24,6 +24,10 @@ jobs:
         working-directory: ./daily
         run: npm ci
 
+      - name: Install Angular Builder
+        working-directory: ./daily
+        run: npm install --save-dev @angular/build
+
       - name: Build
         working-directory: ./daily
         run: npm run build
