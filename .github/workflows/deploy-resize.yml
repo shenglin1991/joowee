@@ -18,7 +18,7 @@ jobs:
           node-version: '18'
 
       - name: Install Angular CLI
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@latest
 
       - name: Install dependencies
         working-directory: ./resize
@@ -26,7 +26,7 @@ jobs:
 
       - name: Build
         working-directory: ./resize
-        run: npm run build
+        run: npx ng build
 
       - name: Deploy to OVH
         uses: appleboy/scp-action@v0.1.4
