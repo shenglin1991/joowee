@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./daily
-        run: npm install
+        run: npm ci
 
       - name: Build
         working-directory: ./daily
