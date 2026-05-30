@@ -49,5 +49,5 @@ jobs:
           port: 22
           script: |
             cd /var/www/adrien-sheng-lin.fr/api
-            /usr/bin/npm install --production
-            /usr/local/bin/pm2 restart api || /usr/local/bin/pm2 start dist/main.js --name api
+            /home/ubuntu/.nvm/versions/node/v25.2.1/bin/npm install --production
+            /home/ubuntu/.nvm/versions/node/v25.2.1/bin/pm2 restart api || /home/ubuntu/.nvm/versions/node/v25.2.1/bin/pm2 start dist/main.js --name api
