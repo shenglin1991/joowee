@@ -35,7 +35,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "daily/dist/daily/**"
+          source: "daily/dist/daily/browser/**"
           target: /var/www/adrien-sheng-lin.fr/daily
           overwrite: true
-          strip_components: 2
+          strip_components: 4

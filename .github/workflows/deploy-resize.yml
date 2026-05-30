@@ -35,7 +35,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "resize/dist/resize/**"
+          source: "resize/dist/resize/browser/**"
           target: /var/www/adrien-sheng-lin.fr/resize
           overwrite: true
-          strip_components: 2
+          strip_components: 4
