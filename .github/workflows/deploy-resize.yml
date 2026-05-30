@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
       - name: Install dependencies
         working-directory: ./resize
         run: npm install

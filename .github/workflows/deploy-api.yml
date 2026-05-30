@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install NestJS CLI
+        run: npm install -g @nestjs/cli
+
       - name: Install dependencies
         working-directory: ./api
         run: npm install
