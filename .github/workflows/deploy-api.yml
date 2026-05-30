@@ -1,0 +1,49 @@
+name: Deploy API (NestJS)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'api/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./api
+        run: npm install
+
+      - name: Build
+        working-directory: ./api
+        run: npm run build
+
+      - name: Deploy to OVH
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: 37.187.218.143
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "api/*"
+          target: /var/www/adrien-sheng-lin.fr/api
+          strip_components: 1
+
+      - name: Restart PM2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 37.187.218.143
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /var/www/adrien-sheng-lin.fr/api
+            npm install --production
+            pm2 restart api || pm2 start dist/main.js --name api
