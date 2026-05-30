@@ -37,3 +37,4 @@ jobs:
           port: 22
           source: "daily/dist/daily/*"
           target: /var/www/adrien-sheng-lin.fr/daily
+          overwrite: true

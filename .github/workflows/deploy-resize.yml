@@ -37,3 +37,4 @@ jobs:
           port: 22
           source: "resize/dist/resize/*"
           target: /var/www/adrien-sheng-lin.fr/resize
+          overwrite: true

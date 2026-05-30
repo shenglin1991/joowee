@@ -21,3 +21,4 @@ jobs:
           port: 22
           source: "site-home/*"
           target: /var/www/adrien-sheng-lin.fr/html
+          overwrite: true

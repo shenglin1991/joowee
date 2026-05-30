@@ -35,9 +35,10 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "api/*"
+          source: "api/dist/*"
           target: /var/www/adrien-sheng-lin.fr/api
           strip_components: 1
+          overwrite: true
 
       - name: Restart PM2
         uses: appleboy/ssh-action@v1
