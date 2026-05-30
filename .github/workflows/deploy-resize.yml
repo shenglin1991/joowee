@@ -38,3 +38,4 @@ jobs:
           source: "resize/dist/resize/*"
           target: /var/www/adrien-sheng-lin.fr/resize
           overwrite: true
+          strip_components: 1

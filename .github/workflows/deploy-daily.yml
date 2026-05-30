@@ -38,3 +38,4 @@ jobs:
           source: "daily/dist/daily/*"
           target: /var/www/adrien-sheng-lin.fr/daily
           overwrite: true
+          strip_components: 1
